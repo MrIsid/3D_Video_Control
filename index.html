@@ -1,0 +1,47 @@
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>3D Object Control</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         body {
+			 padding: 0;
+			 margin: 0;
+         }
+         video {
+			 width: 100%;
+			 height: 100%;
+			 -webkit-touch-callout: none;
+			 -webkit-user-select: none;
+			 -khtml-user-select: none;
+			 -moz-user-select: none;
+			 -ms-user-select: none;
+			 user-select: none; 
+			 -webkit-tap-highlight-color: transparent;
+			 outline: none;
+         }
+      </style>
+   </head>
+   <body>
+      <video id="videoPlayer" src="./video.mp4"></video>
+      <script>
+		var video = document.getElementById("videoPlayer");
+		var token;
+		video.onmousedown = function(event) {
+			token = setInterval(function () {
+				if (event.pageX > video.offsetWidth / 2) {
+					if (video.currentTime > video.duration / 2) video.currentTime = video.duration - video.currentTime;
+					video.play();
+				} else if (event.pageX < video.offsetWidth / 2) {
+					if (video.currentTime < video.duration / 2) video.currentTime = video.duration - video.currentTime;
+					video.play();
+				}}, 10);
+			video.onmouseup = function() {
+				clearInterval(token);
+				video.pause();
+				video.onmouseup = null;
+			   };
+         }
+      </script>
+   </body>
+</html>
