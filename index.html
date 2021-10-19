@@ -41,6 +41,7 @@
 					video.play();
 				} else if (event.pageX < video.offsetWidth / 2) {
 					if (video.currentTime < video.duration / 2) video.currentTime = video.duration - video.currentTime;
+					window.token = setInterval(function () {if (video.currentTime < video.duration / 2) {video.pause();clearInterval(token);}},1);
 					video.play();
 				}
 				});
