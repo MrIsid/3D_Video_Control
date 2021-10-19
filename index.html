@@ -23,25 +23,42 @@
       </style>
    </head>
    <body>
-      <video id="videoPlayer" src="./video.mp4"></video>
+      <video type="Illusory_3D" src="./video.mp4"></video>
       <script>
-		var video = document.getElementById("videoPlayer");
-		var token;
-		video.onmousedown = function(event) {
-			token = setInterval(function () {
+			window.oncontextmenu = function(event) {
+				 event.preventDefault();
+				 event.stopPropagation();
+				 return false;
+			};
+	      window.onload = function() {
+			var video = document.querySelectorAll("video[type='Illusory_3D']");
+			window.token;
+			video.forEach(function(video) {
+				video.addEventListener("mousedown", (event) => {
 				if (event.pageX > video.offsetWidth / 2) {
 					if (video.currentTime > video.duration / 2) video.currentTime = video.duration - video.currentTime;
+					window.token = setInterval(function () {if (video.currentTime > video.duration / 2) {video.pause();clearInterval(token);}},1);
 					video.play();
 				} else if (event.pageX < video.offsetWidth / 2) {
 					if (video.currentTime < video.duration / 2) video.currentTime = video.duration - video.currentTime;
 					video.play();
-				}}, 10);
-			video.onmouseup = function() {
-				clearInterval(token);
-				video.pause();
-				video.onmouseup = null;
-			   };
-         }
+				}
+				});
+				video.addEventListener("mouseup", (event) => {clearInterval(token);video.pause();});
+				video.addEventListener("touchstart", (event) => {
+				if (event.touches[0].pageX > video.offsetWidth / 2) {
+					if (video.currentTime > video.duration / 2) video.currentTime = video.duration - video.currentTime;
+					window.token = setInterval(function () {if (video.currentTime > video.duration / 2) {video.pause();clearInterval(token);}},1);
+					video.play();
+				} else if (event.touches[0].pageX < video.offsetWidth / 2) {
+					if (video.currentTime < video.duration / 2) video.currentTime = video.duration - video.currentTime;
+					video.play();
+				}
+				});
+				video.addEventListener("touchend", (event) => {clearInterval(token);video.pause();});
+				
+			});
+		  }
       </script>
-   </body>
+	</body>
 </html>
