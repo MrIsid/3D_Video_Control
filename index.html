@@ -1,7 +1,7 @@
 <html>
    <head>
       <meta charset="UTF-8">
-      <title>3D Object Control</title>
+      <title>Illusory 3D</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
          body {
@@ -36,12 +36,12 @@
 			video.forEach(function(video) {
 				video.addEventListener("mousedown", (event) => {
 				if (event.pageX > video.offsetWidth / 2) {
-					if (video.currentTime > video.duration / 2) video.currentTime = video.duration - video.currentTime;
-					window.token = setInterval(function () {if (video.currentTime > video.duration / 2) {video.pause();clearInterval(token);}},1);
+					if (video.currentTime > video.duration / 2) video.currentTime = (video.duration) - video.currentTime;
+					window.token = setInterval(function () {if (video.currentTime > video.duration / 2) video.currentTime = 0;},1);
 					video.play();
 				} else if (event.pageX < video.offsetWidth / 2) {
-					if (video.currentTime < video.duration / 2) video.currentTime = video.duration - video.currentTime;
-					window.token = setInterval(function () {if (video.currentTime < video.duration / 2) {video.pause();clearInterval(token);}},1);
+					if (video.currentTime < video.duration / 2) video.currentTime = (video.duration) - video.currentTime;
+					window.token = setInterval(function () {if (video.currentTime == video.duration) {video.currentTime = (video.duration/2);console.log("workleft");}},1);
 					video.play();
 				}
 				});
